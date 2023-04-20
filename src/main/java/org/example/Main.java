@@ -63,7 +63,13 @@ public class Main {
                     for (Object item: ((List<?>) atrValue).toArray()) {
                         String itemStr = item.toString();
                         if (!(item instanceof Number)) {
-                            item = ('"' + itemStr + '"');
+                            Object itemAux = item;
+                            if (testMethodIsClass(itemAux)) {                       
+                                item = jsonBuilder(itemAux, ++tabs);
+                                --tabs;
+                            } else {
+                                item = ('"' + itemStr + '"');
+                            }
                             updateList.add(item.toString());
                         } else {
                             break;
@@ -96,7 +102,7 @@ public class Main {
         user.setTasks(List.of("Correr", "Trabalhar", "Cuidar do filho"));
         user.setPhones(List.of(984330374, 999907580));
         user.setAddress(address);
-        user.getAddress().setNum(33);
+        user.getAddress().setNum(List.of(33, 23, 11));
         user.getAddress().setStreet("Caramuru");
         user.getAddress().setNeighborhood("Divina Providência");
         user.getAddress().setCity(city);
@@ -104,6 +110,27 @@ public class Main {
         user.getAddress().getCity().setName("Santa Maria");
         user.getAddress().getCity().setState("Rio Grande do Sul");
         user.getAddress().getCity().setCountry("Brasil");
+        user.getAddress().getCity().setBeaches(List.of("Praia 1", "Praia 2"));
+
+        User father = new User();
+        father.setId(2);
+        father.setName("Sid");
+        father.setCPF("555.555.555-55");
+        father.setEmail("Sid@email.vale");
+        father.setTasks(List.of("Jogar", "Trabalhar", "Cuidar do Neto"));
+        father.setPhones(List.of(888888888, 555555555));
+        father.setAddress(address);
+
+        User mother = new User();
+        mother.setId(3);
+        mother.setName("Susi");
+        mother.setCPF("666.666.666-66");
+        mother.setEmail("Susi@email.vale");
+        mother.setTasks(List.of("Academia", "Trabalhar", "Cuidar do Neto"));
+        mother.setPhones(List.of(666666666, 333333333));
+        mother.setAddress(address);
+
+        user.setFamily(List.of(father, mother));
 
         String json = jsonBuilder(user, 1);
         System.out.println(json);

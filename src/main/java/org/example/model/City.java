@@ -1,5 +1,8 @@
 package org.example.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.example.decorators.Json;
 
 public class City {
@@ -7,6 +10,16 @@ public class City {
     private String name;
     private String state;
     private String Country;
+    private List<String> beaches = new ArrayList<>();
+
+    @Json
+    public List<String> getBeaches() {
+        return beaches;
+    }
+
+    public void setBeaches(List<String> beaches) {
+        this.beaches = beaches;
+    }
 
     @Json
     public int getCod() {

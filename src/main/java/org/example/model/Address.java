@@ -1,19 +1,22 @@
 package org.example.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.example.decorators.Json;
 
 public class Address {
-    private int num;
+    private List<Number> num = new ArrayList<>();
     private String street;
     private String neighborhood;
     private City city;
 
     @Json
-    public int getNum() {
+    public List<Number> getNum() {
         return num;
     }
 
-    public void setNum(int num) {
+    public void setNum(List<Number> num) {
         this.num = num;
     }
 

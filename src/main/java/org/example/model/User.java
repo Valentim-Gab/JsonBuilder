@@ -14,6 +14,7 @@ public class User {
     private List<String> tasks = new ArrayList<String>();
     private List<Number> phones = new ArrayList<Number>();
     private Address address;
+    private List<User> family = new ArrayList<>();
 
     public User() {}
     public User(int id, String name, String CPF, String email) {
@@ -101,5 +102,14 @@ public class User {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Json
+    public List<User> getFamily() {
+        return family;
+    }
+    
+    public void setFamily(List<User> family) {
+        this.family = family;
     }
 }
