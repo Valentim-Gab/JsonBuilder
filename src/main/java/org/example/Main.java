@@ -4,6 +4,7 @@ import org.example.decorators.Json;
 import org.example.model.Address;
 import org.example.model.City;
 import org.example.model.User;
+import javax.swing.*;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -12,6 +13,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
+
+    public static void showJson(String json) {
+        JFrame frame = new JFrame("Exibindo JSON");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JTextArea textArea = new JTextArea(json);
+        textArea.setEditable(false);
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        frame.add(scrollPane);
+
+        frame.setSize(500, 400);
+        frame.setVisible(true);
+    }
 
     public static Boolean testMethodIsClass(Object atrValue) {
         String mainPackageName = Main.class.getPackageName();
@@ -22,6 +37,7 @@ public class Main {
     public static String generateTabs(int tabs) {
         return "\t".repeat(Math.max(0, tabs));
     }
+
     public static String jsonBuilder(Object o, int tabs) throws InvocationTargetException, IllegalAccessException {
         StringBuffer jsonString = new StringBuffer();
         char quotationMarks = '"';
@@ -68,6 +84,7 @@ public class Main {
 
         return jsonString.toString();
     }
+    
     public static void main(String[] args) throws InvocationTargetException, IllegalAccessException {
         User user = new User();
         Address address = new Address();
@@ -88,6 +105,8 @@ public class Main {
         user.getAddress().getCity().setState("Rio Grande do Sul");
         user.getAddress().getCity().setCountry("Brasil");
 
-        System.out.println(jsonBuilder(user, 1));
+        String json = jsonBuilder(user, 1);
+        System.out.println(json);
+        showJson(json);
     }
 }
