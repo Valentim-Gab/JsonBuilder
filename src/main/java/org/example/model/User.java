@@ -14,6 +14,10 @@ public class User {
     private List<String> tasks = new ArrayList<String>();
     private List<Number> phones = new ArrayList<Number>();
     private Address address;
+    private List<User> family = new ArrayList<>();
+    private List<List<String>> listInList = new ArrayList<>();
+    private List<List<Number>> listInListNumber = new ArrayList<>();
+    private boolean pcd = false;
 
     public User() {}
     public User(int id, String name, String CPF, String email) {
@@ -21,6 +25,11 @@ public class User {
         this.name = name;
         this.cpf = CPF;
         this.email = email;
+    }
+
+    @Json
+    public String getEmpty() {
+        return null;
     }
 
     @Json
@@ -101,5 +110,41 @@ public class User {
 
     public void setAddress(Address address) {
         this.address = address;
+    }
+
+    @Json
+    public List<User> getFamily() {
+        return family;
+    }
+    
+    public void setFamily(List<User> family) {
+        this.family = family;
+    }
+
+    @Json
+    public List<List<String>> getListInList() {
+        return listInList;
+    }
+
+    public void setListInList(List<List<String>> listInList) {
+        this.listInList = listInList;
+    }
+
+    @Json
+    public boolean getPcd() {
+        return pcd;
+    }
+
+    public void setPcd(boolean pcd) {
+        this.pcd = pcd;
+    }
+
+    @Json
+    public List<List<Number>> getListInListNumber() {
+        return listInListNumber;
+    }
+
+    public void setListInListNumber(List<List<Number>> listInListNumber) {
+        this.listInListNumber = listInListNumber;
     }
 }
