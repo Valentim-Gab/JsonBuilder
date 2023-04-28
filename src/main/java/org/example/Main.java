@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-
     public static void showJson(String json) {
         JFrame frame = new JFrame("Exibindo JSON");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -31,6 +30,7 @@ public class Main {
     public static Boolean testMethodIsClass(Object atrValue) {
         String mainPackageName = Main.class.getPackageName();
         String atrValuePackageName = atrValue.getClass().getPackageName();
+
         return atrValuePackageName.equals(mainPackageName) || atrValuePackageName.startsWith(mainPackageName + ".");
     }
 
@@ -40,8 +40,10 @@ public class Main {
 
     public static Object arrayConstructor(Object atrValue) {
         List<String> updateList = new ArrayList<>();
+
         for (Object item: ((List<?>) atrValue).toArray()) {
             String itemStr = item.toString();
+
             if (!(item instanceof Number || item instanceof Boolean)) {
                 if (item instanceof List<?>)
                     item = arrayConstructor(item);
@@ -59,8 +61,8 @@ public class Main {
         char quotationMarks = '"';
         String quotationMarksValue;
         String strTabs = generateTabs(tabs);
-        jsonString.append("{\n");
 
+        jsonString.append("{\n");
         for (Method method: o.getClass().getDeclaredMethods()) {
             if (method.getParameterTypes().length == 0
                     && Modifier.isPublic(method.getModifiers())
@@ -97,10 +99,8 @@ public class Main {
                         atrValue = updateList;
                     }
                 } else {
-                    if (atrValue != null && testMethodIsClass(atrValue)) {
-                        atrValue = jsonBuilder(atrValue, ++tabs);
-                        --tabs;
-                    }
+                    if (atrValue != null && testMethodIsClass(atrValue))
+                        atrValue = jsonBuilder(atrValue, tabs + 1);
                 }
                 jsonString.append(strTabs).append(quotationMarks).append(key).append(quotationMarks)
                         .append(": ").append(quotationMarksValue).append(atrValue).append(quotationMarksValue)
